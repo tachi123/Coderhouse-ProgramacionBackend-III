@@ -1,8 +1,9 @@
 {
-  "name": "mockingapi",
+  "name": "proyectooptimizado",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start": "cross-env NODE_ENV=production node ./src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -10,9 +11,13 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@faker-js/faker": "^9.7.0",
     "express": "^5.1.0",
-    "mockingapi": "file:"
+    "express-compression": "^1.0.2",
+    "pino": "^9.6.0",
+    "proyectooptimizado": "file:"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   },
   "type": "module"
 }

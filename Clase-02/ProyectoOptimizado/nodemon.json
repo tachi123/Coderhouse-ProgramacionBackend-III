@@ -1,0 +1,15 @@
+{
+    "restartable": "rs", 
+    "ignore": [
+      ".git",
+      "node_modules/",
+      "dist/"
+    ],
+    "verbose": true,
+    "execMap": {
+      "js": "node --harmony" 
+    },
+    "events": {
+      "restart": "echo 'Server restarted!'"
+    }
+  }
