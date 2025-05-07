@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - MONGO_URL=mongodb://host.docker.internal:27017/CoderHouse
+    command: [ "node", "src/app.js"]

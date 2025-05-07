@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  app:
+    image: jnramirezlorca/userscreator:1.0.0
+    ports:
+      - "8080:8080"
+    environment:
+      - MONGO_URL=mongodb://IPPRODUCCION:27017/CoderHouse
+    command: [ "node", "src/app.js"]

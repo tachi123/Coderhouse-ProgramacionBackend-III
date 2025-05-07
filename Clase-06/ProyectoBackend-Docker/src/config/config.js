@@ -1,5 +1,5 @@
 export default {
     mongo:{
-        URL: process.env.MONGO_URL || 'http://localhost:27017'
+        URL: process.env.MONGO_URL || 'mongodb://localhost:27017/CoderHouse'
     }
 }
