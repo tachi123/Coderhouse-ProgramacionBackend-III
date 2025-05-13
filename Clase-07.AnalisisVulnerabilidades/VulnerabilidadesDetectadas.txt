@@ -1,0 +1,21 @@
+Proyecto 1:
+- A03 Injection : no se validan campos ingresados
+- A04 Insecure Design
+    No se validan los campos, se pueden guardar usuarios sin email o contraseña
+    Mala implementación de la capa router con la capa controlador
+    El input password del formulario no tiene type=password
+- A05 Misconfiguration: el puerto del server esta hardcodeado
+- A06: Vulnerable and Outdated components
+- A07 Identification and authentication failures: la contraseña no se hashea
+
+Proyecto 2:
+
+- A04 Insecure Design
+    No se valida correo repeito
+    Los errores registración presentan: status genérico
+- A05 Misconfiguration: el puerto del server y url mongo esta hardcodeado
+- A06: Vulnerable and Outdated components
+- A09 Logging and monitoring failures: el error al registrar usuario se devuelve tal cual el stack trace al usuario en el response
+
+
+
