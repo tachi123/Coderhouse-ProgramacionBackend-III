@@ -20,7 +20,9 @@ const swaggerOptions = {
       version: '1.0.0',
     },
   },
-  apis: [path.join(__dirname,'docs/**/*.yaml')], // files containing annotations as above
+  apis:
+    [path.join(__dirname,'routes/*.js')],
+  // [path.join(__dirname,'docs/**/*.yaml')], // files containing annotations as above
 };
 
 const specs = swaggerJsdoc(swaggerOptions);
