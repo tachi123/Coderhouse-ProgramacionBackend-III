@@ -1,14 +1,12 @@
-import chai from 'chai';
 import mongoose from 'mongoose';
 import User from '../src/dao/Users.dao.js';
 import Assert from 'assert';
 
 mongoose.connect(`mongodb+srv://coderuser:Hsiu8LrVRlpeSzAI@cluster0.b6out72.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
 
-//Creamos la variable expect que vamos a utilizar ahora para las comparaciones
-const expect = chai.expect;
+const assert = Assert.strict;
 
-describe('Testing Users DAO con CHAI', function(){
+describe('Testing Users DAO', function(){
     before(function() {
         this.userDao = new User();
         this.mockUser = {
@@ -22,26 +20,30 @@ describe('Testing Users DAO con CHAI', function(){
         mongoose.connection.collections.users.drop();
         this.timeout(5000); // por defecto son 2 segundos
     })
-    it('El get debe devolver un arreglo', async function(){
+    it('El get debe devolver un arreglo', async function(){ //el callback es justamente el entorno que queremos ejecutar y validar el test
+        //console.log(this.userDao);
+        //Este entorno es aislado, por lo que no afecta al resto de los tests
         const result = await this.userDao.get();
-
-        expect(result).to.be.an('array');
+        assert.strictEqual(Array.isArray(result), true);
     })
     it('El DAO debe agregar un usuario correctamente a la base de datos', async function(){ 
         const result = await this.userDao.save(this.mockUser);
-        expect(result).to.have.property('_id');
+        //assert.ok evalua si el parámetro es truthy
+        assert.ok(result._id);
     })
     it('El DAO debe agregar al documento insertado un arreglo de mascota vacío por defecto', async function(){ 
         const result = await this.userDao.save(this.mockUser);
-        expect(result.pets).to.deep.equal([]);
+        //assert.deepStrictEqual hace referencia a una comparación interna
+        //Si usamos strictEqual,  va a dar error por va a validar las referencias, y justamente son distintas
+        assert.deepStrictEqual(result.pets, []);
     })
-    it('El Dao puede obtener a un usuario a partir de su email', async function(){
+    it('El Dao puede obtener a un usuario a partir de su email', async function(){ 
         const result = await this.userDao.save(this.mockUser);
-        const user = await this.userDao.getBy({ email: result.email});
 
-        expect(user).to.be.an('object');
-        expect(user)
-            .to.have.property('first_name')
-            .that.equals(this.mockUser.first_name);
+        const user = await this.userDao.getBy({ email: result.email});
+        
+        const userObject = user.toObject();
+        assert.strictEqual(typeof user, 'object');
+        assert.strictEqual(userObject.first_name, this.mockUser.first_name);
     })
 })
