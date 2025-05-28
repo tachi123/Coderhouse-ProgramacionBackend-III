@@ -12,23 +12,23 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const createdUser = new this.usersModel(createUserDto);
-    return createdUser.save(); // save() ya devuelve una promesa
+    return createdUser.save();
   }
 
   async findAll(): Promise<User[] | null> {
     return this.usersModel.find().lean().exec();
   }
 
-  async findOne(id: string): Promise<User | null> { // id: string
-    return this.usersModel.findById(id).lean().exec(); // lean() y exec()
+  async findOne(id: string): Promise<User | null> {
+    return this.usersModel.findById(id).lean().exec();
   }
 
-  async update(id: string, updateUserDto: Partial<UpdateUserDto>): Promise<User | null> { // Partial en el parámetro
-    return this.usersModel.findByIdAndUpdate(id, updateUserDto, { new: true }).lean().exec(); // lean() y exec()
+  async update(id: string, updateUserDto: Partial<UpdateUserDto>): Promise<User | null> {
+    return this.usersModel.findByIdAndUpdate(id, updateUserDto, { new: true }).lean().exec(); 
   }
 
-  async remove(id: string): Promise<User | null> { // id: string
-    return this.usersModel.findByIdAndDelete(id).lean().exec(); // lean() y exec()
+  async remove(id: string): Promise<User | null> { 
+    return this.usersModel.findByIdAndDelete(id).lean().exec();
 
   }
 }
