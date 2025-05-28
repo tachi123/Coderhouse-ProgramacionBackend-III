@@ -36,7 +36,4 @@ export default  {
     jest: true, // Si usas jest
     // ... otros entornos
   },
-
-
-
 };

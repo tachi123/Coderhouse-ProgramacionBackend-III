@@ -10,24 +10,25 @@ export class UsersService {
 
   constructor(@InjectModel(User.name) private usersModel: Model <UsersDocument> ){}
 
-  create(createUserDto: CreateUserDto) {
-      const createdUser = this.usersModel(createUserDto);
-      return createdUser.save();
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const createdUser = new this.usersModel(createUserDto);
+    return createdUser.save(); // save() ya devuelve una promesa
   }
 
   async findAll(): Promise<User[] | null> {
-    return this.usersModel.find().lean.exec();
+    return this.usersModel.find().lean().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string): Promise<User | null> { // id: string
+    return this.usersModel.findById(id).lean().exec(); // lean() y exec()
   }
 
-  update(id: number, updateUserDto: Partial<UpdateUserDto> : Promise<User | null>) {
-    return this.usersModel.findByIdAndUpdate(id, updateUserDto, {new : true}).exec();
+  async update(id: string, updateUserDto: Partial<UpdateUserDto>): Promise<User | null> { // Partial en el parámetro
+    return this.usersModel.findByIdAndUpdate(id, updateUserDto, { new: true }).lean().exec(); // lean() y exec()
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string): Promise<User | null> { // id: string
+    return this.usersModel.findByIdAndDelete(id).lean().exec(); // lean() y exec()
+
   }
 }
