@@ -1,15 +1,24 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import FirstMiddleware from './middlewares/firstMiddleware';
+import { EnvConfigService } from './env.config.service';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://coderuser:Hsiu8LrVRlpeSzAI@cluster0.b6out72.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+    ConfigModule.forRoot(),
+    MongooseModule.forRootAsync(
+      {
+        imports: [ConfigModule],
+        inject: [EnvConfigService],
+        useFactory: async(config:EnvConfigService) => ({
+          uri: config.mongoUrl
+        })
+      }
     ),
     UsersModule,
   ],
