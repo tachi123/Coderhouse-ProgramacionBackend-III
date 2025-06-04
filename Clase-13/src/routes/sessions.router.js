@@ -8,5 +8,6 @@ router.post('/login',sessionsController.login);
 router.get('/current',sessionsController.current);
 router.get('/unprotectedLogin',sessionsController.unprotectedLogin);
 router.get('/unprotectedCurrent',sessionsController.unprotectedCurrent);
+router.get('/logout',sessionsController.logout);
 
 export default router;
