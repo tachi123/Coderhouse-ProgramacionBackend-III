@@ -66,7 +66,8 @@ const unprotectedCurrent = async(req,res)=>{
 }
 
 const logout = async(req,res)=>{
-    await usersService.updateUser(req.user._id, { last_connection: new Date() });
+    //Si usaramos el modelo de manera directa sin capas, { $set: { last_connection: new Date() } }
+    await usersService.updateUser(req.user._id, { last_connection: new Date() }); 
     res.clearCookie('coderCookie').send({status:"success",message:"Logged out"})
 }
 

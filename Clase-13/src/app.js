@@ -7,9 +7,26 @@ import petsRouter from './routes/pets.router.js';
 import adoptionsRouter from './routes/adoption.router.js';
 import sessionsRouter from './routes/sessions.router.js';
 
+import swaggerUI from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
+import __dirname from './utils.js';
+import YAML from 'yamljs';
+import path from 'path';
+
 const app = express();
 const PORT = process.env.PORT||8080;
 const connection = mongoose.connect(`mongodb+srv://coderuser:Hsiu8LrVRlpeSzAI@cluster0.b6out72.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
+
+console.log(__dirname+'routes/*.js');
+
+const swaggerDocument = YAML.load( path.join(__dirname, 'docs', 'swagger.yaml') );
+
+const options = {
+    swaggerDefinition: swaggerDocument,
+    apis: [`${__dirname}/routes/*.js`],
+}
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.use(express.json());
 app.use(cookieParser());
