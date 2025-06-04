@@ -19,14 +19,21 @@ const connection = mongoose.connect(`mongodb+srv://coderuser:Hsiu8LrVRlpeSzAI@cl
 
 console.log(__dirname+'routes/*.js');
 
-const swaggerDocument = YAML.load( path.join(__dirname, 'docs', 'swagger.yaml') );
+const swaggerOptions = {
+    definition: {
+        openapi: '3.0.1',
+        info: {
+            title: 'API AdoptMe',
+            version: '1.0.0',
+            description: 'Documentación de la API AdoptMe'
+        }
+    },
+    apis: [`${__dirname}/routes/*.js`], // Aquí busca los comentarios JSDoc
+};
 
-const options = {
-    swaggerDefinition: swaggerDocument,
-    apis: [`${__dirname}/routes/*.js`],
-}
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec)); //Si no queremos usar comentarios ponemos const swaggerSpec = YAML.load( path.join(__dirname, 'docs', 'swagger.yaml') );
 
 app.use(express.json());
 app.use(cookieParser());
