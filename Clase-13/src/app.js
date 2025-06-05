@@ -15,7 +15,8 @@ import path from 'path';
 
 const app = express();
 const PORT = process.env.PORT||8080;
-const connection = mongoose.connect(`mongodb+srv://coderuser:Hsiu8LrVRlpeSzAI@cluster0.b6out72.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
+const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/adoptme';
+const connection = mongoose.connect(MONGO_URL);
 
 console.log(__dirname+'routes/*.js');
 
